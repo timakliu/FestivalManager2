@@ -1,0 +1,113 @@
+﻿<Page x:Class="FestivalManager.Views.FestivalManagerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FestivalManager.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"    
+      d:DesignHeight="800" d:DesignWidth="1000"
+      Title="FestivalManagerPage">
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="*" ></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <!-- <TextBox Grid.Column="0"  HorizontalAlignment="Left" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Поиск"  Width="100"  BorderBrush="red" Height="37" BorderThickness="1,1,1,1"/> -->
+                <Border CornerRadius="7" 
+                        Grid.Column="1" 
+                        Grid.ColumnSpan="2"
+                        BorderBrush="MediumPurple"
+                        BorderThickness="1" 
+                        VerticalAlignment="Center" 
+                        Margin="10 10 10 0"
+                        UseLayoutRounding="True">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  Width="*" ></ColumnDefinition>
+                            <ColumnDefinition Width="22"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="SearchTextBox" Margin="5 3" FontWeight="Normal"  materialDesign:HintAssist.Hint="Найти"  TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="0" FontSize="16" TextChanged="SearchText_TextChanged"  Background="Transparent" BorderThickness="0"  Style="{StaticResource MaterialDesignComboBoxEditableTextBox}"/>
+                        <materialDesign:PackIcon Kind="Magnify" Grid.Column="1" Foreground="MediumPurple" Width="22" Height="22" VerticalAlignment="Center"/>
+                    </Grid>
+
+                </Border>
+                <StackPanel Grid.Column="3" Orientation="Horizontal">
+
+                    <ComboBox Name="SortComboBox" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="142">
+                        <ComboBoxItem>По дате проведения</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">По имени</ComboBoxItem>
+                        <ComboBoxItem>По дате добавления</ComboBoxItem>
+                    </ComboBox>
+                    <Button Margin="10 0"  Click="AddButton_Click"  HorizontalAlignment="Right"  VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignIconButton}" BorderBrush="AliceBlue"  Background="White" Height="32" Width="32" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Plus" Foreground="MediumPurple" Width="21" Height="21" />
+
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+            </Grid>
+
+            <StackPanel>
+                <ListView x:Name="FestList" SelectionChanged="FestSelectedItem"  HorizontalContentAlignment="Stretch" 
+                    HorizontalAlignment="Center" VerticalAlignment="Top">
+
+
+                    <ListView.View  >
+                        <GridView   >
+                            <GridViewColumn  >
+                                <GridViewColumn.CellTemplate  >
+                                    <DataTemplate  >
+                                        <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                                            <Grid Height="60px"  >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="595" ></ColumnDefinition>
+                                                    <ColumnDefinition  ></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                                                <StackPanel Orientation="Horizontal"  Grid.Row="1" Grid.Column="0">
+                                                    <materialDesign:PackIcon Kind="ClockCheckOutline" VerticalAlignment="Center" Foreground="MediumPurple" Width="16" Height="16" />
+                                                    <TextBlock  Margin="5 0" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center"><Run Language="ru-ru" Text="{Binding StartTime, StringFormat=\{0:HH:mm\}}"></Run> - <Run Language="ru-ru" Text="{Binding EndTime, StringFormat=\{0:HH:mm\}}"></Run></TextBlock>
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal"  Grid.Row="0" Grid.Column="1">
+                                                    <materialDesign:PackIcon Kind="CalendarBadge" VerticalAlignment="Center" Foreground="MediumPurple" Width="16" Height="16" />
+                                                    <TextBlock Margin="5 0" Text="{Binding FestDate, StringFormat=\{0:dd.MM.yy\}}" FontSize="12"  HorizontalAlignment="Right" VerticalAlignment="Center" ></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+
+
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

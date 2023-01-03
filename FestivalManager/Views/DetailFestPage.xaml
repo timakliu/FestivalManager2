@@ -1,0 +1,221 @@
+﻿<Page x:Class="FestivalManager.Views.DetailFestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FestivalManager.Views"
+      xmlns:models="clr-namespace:FestivalManager.Models"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1000" 
+      Title="DetailFestPage">
+
+    <Page.Resources>
+
+
+        <ObjectDataProvider x:Key="myDataSource" ObjectType="{x:Type models:Fest}">
+
+        </ObjectDataProvider>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="False">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="15" >
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin" Value="0,5,0,5"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="40" ></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Click="BackButton_Click" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource MaterialDesignIconButton}" BorderBrush="AliceBlue" Background="White" Height="32" Width="32">
+                    <StackPanel Orientation="Horizontal" Width="25">
+                        <materialDesign:PackIcon Kind="ArrowBack" Foreground="MediumPurple" Width="25" Height="25" RenderTransformOrigin="0.72,0.54" />
+
+                    </StackPanel>
+
+                </Button>
+                <TextBlock Name="FestName" FontSize="30"  FontWeight="Medium" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap"  Text="{Binding Path=Name}"  VerticalAlignment="Top"/>
+                <Button  Grid.Column="2" Click="EditButton_Click"  HorizontalAlignment="Right"  VerticalAlignment="Top" Style="{StaticResource MaterialDesignIconButton}" BorderBrush="AliceBlue"  Background="White" Height="32" Width="32" >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Edit" Foreground="MediumPurple" Width="21" Height="21" />
+
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Начало мероприятия - "/><Run Language="ru-ru" Name="RunStartTime"  Text="{Binding Path=StartTime,StringFormat=\{0:HH:mm\}}"/></TextBlock>
+            <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Конец мероприятия - "/><Run Name="RunEndTime" Text="{Binding Path=EndTime,StringFormat=\{0:HH:mm\}}"/></TextBlock>
+            <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Дата - "/><Run Name="RunDate"  Text="{Binding Path=FestDate,StringFormat=\{0:dd.MM.yy\}}"/></TextBlock>
+
+
+            <TextBlock FontSize="20" FontWeight="Bold"   HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Text="Судьи"/>
+            <ScrollViewer x:Name="MyScrollViewer1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Height="45" >
+                <ItemsControl Name="JudgeItems" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="5 0"   HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource MaterialDesignOutlinedButton}" BorderBrush="AliceBlue" Background="White" >
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock><Run Language="ru-ru" Text="{Binding FirstName}"/><Run Language="ru-ru" Text=" "/><Run Language="ru-ru" Text="{Binding LastName}"/></TextBlock>
+                                </StackPanel>
+
+                            </Button>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </ScrollViewer>
+            <!--
+               <WrapPanel  Orientation="Horizontal">
+                <Ellipse Width="100" Height="100" Fill="Red" />
+                <Ellipse Width="90" Height="90" Fill="Orange" />
+                <Ellipse Width="80" Height="80" Fill="Yellow" />
+                <Ellipse Width="70" Height="70" Fill="LightGreen" />
+                <Ellipse Width="60" Height="60" Fill="Green" />
+                <Ellipse Width="50" Height="50" Fill="LightBlue" />
+                <Ellipse Width="40" Height="40" Fill="Blue" />
+                <Ellipse Width="30" Height="30" Fill="Black" />
+            </WrapPanel>
+            -->
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="20" FontWeight="Bold"   HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Text="Участники"/>
+                <Button Grid.Column="1"  Grid.Row="1"
+            HorizontalAlignment="Left" 
+                        BorderThickness="0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Margin="15 6 0 0"
+            VerticalAlignment="Center"  Height="22" 
+            Click="XMLButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PlusBold" Foreground="MediumPurple" Width="14" Height="13" />
+                        <TextBlock Margin="3 0 0 0" FontSize="11" VerticalAlignment="Center" Height="16" >Выгрузить в XML</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1"  Grid.Row="1"
+            HorizontalAlignment="Left" 
+                        BorderThickness="0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Margin="0 6 0 0"
+                        Click="GetResultsButton_Click"
+            VerticalAlignment="Center"  Height="22" >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Resume" Foreground="MediumPurple" Width="14" Height="13" />
+                        <TextBlock   Margin="3 0 0 0" FontSize="11" VerticalAlignment="Center" Height="16" >Результаты фестиваля</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <DataGrid
+                x:Name="DataGridParticipants"
+                IsReadOnly="True" 
+                SelectionMode ="Extended"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding People, UpdateSourceTrigger=PropertyChanged}" Height="324"
+               >
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                    Header="Номер" 
+                    MinWidth="40"
+                    Width="*"
+                   
+                    Binding="{Binding Number}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Номер" Foreground="#673AB7"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Имя" 
+                    MinWidth="100"
+                    Width="*"
+                    Binding="{Binding FirstName}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Имя" Foreground="#673AB7"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Фамилия" 
+                    MinWidth="100"
+                    Width="*"
+                    
+                    Binding="{Binding LastName}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Фамилия" Foreground="#673AB7"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Время выступления" 
+                    MinWidth="160"
+                    Width="*"
+                    Binding="{Binding TimePerformance,StringFormat=\{0:HH:mm\}}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Время выступления" Foreground="#673AB7"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn 
+                    Header="Оценка" 
+                    MinWidth="100"
+                    Width="*"
+                    Binding="{Binding Score}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Оценка" Foreground="#673AB7"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTemplateColumn  MinWidth="40"  
+                    Width="60">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource MaterialDesignToolButton}"
+                                      Margin="0" Click="TrashButton_Click">
+                                    <StackPanel Orientation="Horizontal" Margin="0">
+                                        <materialDesign:PackIcon Kind="Star" Foreground="MediumPurple" Width="18" Height="18" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </StackPanel>
+    </Grid>
+</Page>
