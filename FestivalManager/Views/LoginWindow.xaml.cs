@@ -40,25 +40,23 @@ namespace FestivalManager.Views
         {
             using(FestContext context = new FestContext())
             {
-                context.Fests.RemoveRange(context.Fests);
-                context.Judges.RemoveRange(context.Judges);
-                context.Participants.RemoveRange(context.Participants);
-                context.Users.RemoveRange(context.Users);
-                context.SaveChanges();
                 // гарантируем, что база данных создана
                 context.Database.EnsureCreated();
 
                 // Заполняем первичными данными, если бд пуста
-                if (!(context.Users.Count() > 0))
+                if (!(context.Users.Count() > 0) && !(context.Fests.Count() > 0))
                 {
+                    context.Fests.RemoveRange(context.Fests);
+                    context.Judges.RemoveRange(context.Judges);
+                    context.Participants.RemoveRange(context.Participants);
+                    context.Users.RemoveRange(context.Users);
+                    context.SaveChanges();
+
                     context.Users.Add(new User() { Login = "admin", Password = "123" });
                     context.Users.Add(new User() { Login = "1", Password = "1" });
                     context.SaveChanges();
 
-                }
-
-                if (!(context.Fests.Count() > 0))
-                {
+               
                     context.Fests.Add(new Fest() { Name = "Голос", Description = "", StartTime = DateTime.Parse("10:11:00"), FestDate = DateTime.Parse("26.12.2022"), EndTime = DateTime.Parse("12:00:00") });
                     context.Fests.Add(new Fest() { Name = "Весенний фестиваль", Description = "", StartTime = DateTime.Parse("10:00:00"), FestDate = DateTime.Parse("15.12.2022"), EndTime = DateTime.Parse("14:11:00"), });
                     context.Fests.Add(new Fest() { Name = "Осенний фестиваль", Description = "", StartTime = DateTime.Parse("06:00:00"), FestDate = DateTime.Parse("22.11.2022"), EndTime = DateTime.Parse("18:30:00"), });
