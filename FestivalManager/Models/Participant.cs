@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace FestivalManager.Models
 {
@@ -16,6 +17,7 @@ namespace FestivalManager.Models
         public double Score { get; set; }
 
         public int FestId { get; set; }
+        [XmlIgnore]
         public Fest Fest { get; set; }
 
 
